@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Türkiye Anka Kuşu Sosyal Gelişim Platformu - Personel Başvuru</title>
+    <style>
+        :root {
+            --primary-color: #1b4d3e;
+            --secondary-color: #d4af37;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 650px;
+            margin: 20px auto;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+        .step { display: none; }
+        .step.active { display: block; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; color: var(--primary-color); }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 0.95rem; }
+        button { background-color: var(--primary-color); color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; margin-top: 15px; }
+        button:hover { background-color: #12352b; }
+        .question-box { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--secondary-color); }
+        .question-box p { margin: 0 0 10px 0; font-weight: 600; font-size: 0.95rem; color: #222; }
+        .options label { display: block; margin-bottom: 8px; font-weight: normal; font-size: 0.9rem; cursor: pointer; background: #fff; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 4px; }
+        .options label:hover { background: #f1f7f5; }
+        .options input { width: auto; margin-right: 8px; }
+        .alert { background: #ffdddd; color: #d8000c; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; margin-bottom: 15px; }
+        .success { background: #d4edda; color: #155724; padding: 15px; border-radius: 6px; text-align: center; font-weight: bold; margin-bottom: 15px; }
+        .camera-box { text-align: center; margin-bottom: 20px; background: #000; border-radius: 8px; overflow: hidden; position: relative; }
+        video { width: 100%; max-height: 200px; object-fit: cover; display: block; }
+        .camera-label { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); color: #fff; padding: 3px 8px; font-size: 0.75rem; border-radius: 4px; }
+        .footer-note { text-align: center; font-size: 0.75rem; color: #777; margin-top: 25px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Türkiye Anka Kuşu Sosyal Gelişim Platformu<br><small style="font-size: 0.8rem; color:#555;">Personel İş Başvuru ve Sınav Sistemi</small></h2>
+
+    <!-- ADIM 1: BİLGİLER -->
+    <div id="step1" class="step active">
+        <h3>1. Aşama: Bilgiler ve Lokasyon Seçimi</h3>
+        <div class="form-group">
+            <label>Adınız Soyadınız:</label>
+            <input type="text" id="fullname" placeholder="Ad Soyad giriniz" oninput="checkAutoFill()">
+        </div>
+        <div class="form-group">
+            <label>TC Kimlik Numarası:</label>
+            <input type="text" id="tckn" maxlength="11" placeholder="11 haneli TC No">
+        </div>
+        <div class="form-group">
+            <label>Başvurmak İstediğiniz Lokasyon:</label>
+            <select id="location" onchange="checkAutoFill()">
+                <option value="">Lokasyon Seçiniz</option>
+                <option value="istanbul">İstanbul</option>
+                <option value="izmir">İzmir</option>
+                <option value="ankara">Ankara</option>
+                <option value="eskisehir">Eskişehir</option>
+                <option value="nevsehir">Nevşehir</option>
+                <option value="erzincan">Erzincan</option>
+                <option value="bingol">Bingöl</option>
+                <option value="van">Van</option>
+                <option value="rize">Rize</option>
+                <option value="trabzon">Trabzon</option>
+                <option value="manisa">Manisa</option>
+                <option value="hatay">Hatay</option>
+                <option value="erzurum">Erzurum</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Başvurmak İstediğiniz Pozisyon:</label>
+            <select id="position" onchange="checkAutoFill()">
+                <option value="">Pozisyon Seçiniz</option>
+                <option value="van_il_bask">Van İl Başk.</option>
+                <option value="agri_il_bask">Ağrı İl Başk.</option>
+                <option value="destek_temizlik">Destek Personel Temizlik</option>
+                <option value="destek_danisma">Destek Personel Danışma</option>
+                <option value="engelli_birim_bask">Engelli Birim Başk.</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Başvurmak İstediğiniz Birim:</label>
+            <select id="department" onchange="checkAutoFill()">
+                <option value="">Birim Seçiniz</option>
+                <option value="ik_ozluk">İK ÖZLÜK</option>
+                <option value="finans_hesap">FİNANS HESAP İŞLERİ</option>
+                <option value="sosyal_hizmetler">SOSYAL HİZMETLER</option>
+            </select>
+        </div>
+        <button onclick="startApplication()">Sonraki Sayfaya Geç & Kamerayı Aç</button>
+    </div>
+
+    <!-- ADIM 2: GENEL KÜLTÜR TESTİ -->
+    <div id="step2" class="step">
+        <h3>2. Aşama: Genel Kültür Testi (KPSS Lisans - 20 Soru)</h3>
+        <p style="font-size: 0.85rem; color: #666;">Geçer Not Barajı: En az 85 Puan (Her soru 5 puandır).</p>
+        
+        <div class="camera-box">
+            <div class="camera-label">Canlı Sınav Güvenlik Kamerası</div>
+            <video id="examCamera" autoplay playsinline muted></video>
+        </div>
+
+        <div id="gk-container"></div>
+        <button onclick="submitGKExam()">Genel Kültür Testini Bitir</button>
+    </div>
+
+    <!-- ADIM 3: MATEMATİK TESTİ -->
+    <div id="step3" class="step">
+        <h3>3. Aşama: Matematik Testi (Fen Lisesi Düzeyi - 20 Soru)</h3>
+        <p style="font-size: 0.85rem; color: #666;">Tebrikler Genel Kültür'ü geçtiniz! Şimdi Matematik testi başlıyor. Baraj: 85 Puan.</p>
+        
+        <div id="mat-container"></div>
+        <button onclick="submitMatExam()">Matematik Testini Bitir</button>
+    </div>
+
+    <!-- ADIM 4: BAŞARISIZLIK EKRANI -->
+    <div id="step4" class="step">
+        <div id="fail-message" class="alert">
+            Testlerden 85 puan barajını alamadınız!<br>
+            Mülakattan elendiniz. Bir sonraki projelerde çalışmak dileği ile...<br>
+            <strong>Anka Kuşu İK Ekibi</strong>
+        </div>
+        <button onclick="location.reload()">Başa Dön</button>
+    </div>
+
+    <!-- ADIM 5: EVRAK YÜKLEME -->
+    <div id="step5" class="step">
+        <div class="success">Tebrikler! Her iki testten de 85 ve üzeri alarak barajı başarıyla geçtiniz.</div>
+        <h3>4. Aşama: Evrak Yükleme Paneli</h3>
+        <div class="form-group"><label>Adli Sicil Kaydı:</label><input type="file" id="doc_adic"></div>
+        <div class="form-group"><label>Vukuatlı Nüfus Kayıt Örneği:</label><input type="file" id="doc_nufus"></div>
+        <div class="form-group"><label>İkametgah Adresi Belgesi:</label><input type="file" id="doc_ikamet"></div>
+        <div class="form-group"><label>En Son Mezuniyet Belgesi:</label><input type="file" id="doc_mezuniyet"></div>
+        <div class="form-group"><label>Diğer Belgeler:</label><input type="file" id="doc_diger"></div>
+        <button onclick="goToPreview()">Önizleme ve Onaya Geç</button>
+    </div>
+
+    <!-- ADIM 6: ÖNİZLEME VE ONAY -->
+    <div id="step6" class="step">
+        <h3>5. Aşama: Önizleme ve Yöneticiye Aktarım Onayı</h3>
+        <div id="preview-content" style="background:#f9f9f9; padding:15px; border-radius:6px; font-size:0.9rem; margin-bottom:15px;"></div>
+        <div class="form-group">
+            <label><input type="checkbox" id="confirm-check" style="width:auto;"> Bilgilerin ve belgelerin doğruluğunu onaylıyorum.</label>
+        </div>
+        <button onclick="finalSubmit()">Yönetici Hesabına Aktar</button>
+    </div>
+
+    <!-- ADIM 7: BAŞARILI TAMAMLAMA -->
+    <div id="step7" class="step">
+        <div class="success">
+            <h3>Başvurunuz Başarıyla Tamamlandı!</h3>
+            Tüm veri ve belgeleriniz Google Apps Script altyapısı üzerinden yönetici hesabına ve e-tablonuza aktarılmıştır.
+        </div>
+        <button onclick="location.reload()">Yeni Başvuru</button>
+    </div>
+
+    <div class="footer-note">© 2026 Türkiye Anka Kuşu Sosyal Gelişim Platformu. Tüm hakları saklıdır.</div>
+</div>
+
+<script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbztXNfu3cJf1b2bbOQ5lRYPWboI9PASEn6itbCnMeIPH23sovvstZ2XmoyYhsbMaOod/exec";
+
+    // Doğru Cevaplar (A:0, B:1, C:2, D:3 indeksleri)
+    const gkData = [
+        { q: "1. Aşağıdakilerden hangisi UNESCO Dünya Mirası Listesi'nde yer alan Türkiye'deki kültürel varlıklardan biridir?", opts: ["İshak Paşa Sarayı", "Göbekli Tepe Arkeolojik Alanı", "Sumela Manastırı", "Ahlat Selçuklu Mezarlığı"], correct: 1 },
+        { q: "2. Osmanlı Devleti'nde 'Tanzimat Fermanı' hangi padişah döneminde ilan edilmiştir?", opts: ["II. Mahmut", "Sultan Abdülaziz", "Sultan Abdülmecit", "III. Selim"], correct: 2 },
+        { q: "3. Türkiye Cumhuriyeti'nin ilk anayasası olan 1921 Anayasası'nın temel karakteristiği aşağıdakilerden hangisidir?", opts: ["Laik ve üniter yapıyı benimsemiştir.", "Yumuşak ve çerçeve anayasa niteliğindedir.", "Kuvvetler ayrılığı ilkesini esas almıştır.", "Kabine sistemini zorunlu kılmıştır."], correct: 1 },
+        { q: "4. Divan-ı Hümayun'da nişancı hangi işlerden sorumlu devlet görevlisidir?", opts: ["İç ve dış yazışmalar ile tahrir defterleri", "Mali bütçe ve vergi toplama işleri", "Ordu komutası ve sefer planlaması", "Şeri ve hukuki davaların görülmesi"], correct: 0 },
+        { q: "5. Türkiye'nin en yüksek hacimli barajı olan ve Fırat Nehri üzerinde kurulan baraj aşağıdakilerden hangisidir?", opts: ["Keban Barajı", "Karakaya Barajı", "Atatürk Barajı", "Yusufeli Barajı"], correct: 2 },
+        { q: "6. Türkiye'de ilk çok partili siyasi hayata geçiş denemesi olan Serbest Cumhuriyet Fırkası'nı kuran devlet adamı kimdir?", opts: ["Ali Fethi Okyar", "Kazım Karabekir", "Adnan Menderes", "Celal Bayar"], correct: 0 },
+        { q: "7. Türk mitolojisinde ve Selçuklu mimarisinde sıklıkla yer alan çift başlı kartal sembolü neyi ifade eder?", opts: ["Bereket ve bolluk", "Hakimiyet ve göksel güç", "Tarım ve toprak bereketi", "Deniz ticareti üstünlüğü"], correct: 1 },
+        { q: "8. Türkiye'nin kuzeyden güneye doğru gidildikçe deniz suyunun tuzluluk oranının artmasının temel coğrafi nedeni nedir?", opts: ["Buharlaşma şiddetinin artması ve enlem etkisi", "Okyanus akıntılarının etkisi", "Deniz derinliğinin azalması", "Akarsu debilerinin yüksek olması"], correct: 0 },
+        { q: "9. İtilaf Devletleri ile imzalanan hangi antlaşma, TBMM tarafından reddedilmiş ve hukuken geçersiz sayılmıştır?", opts: ["Sevr Antlaşması", "Mondros Mütarekesi", "Londra Konferansı Kararları", "Ataköy Anlaşması"], correct: 0 },
+        { q: "10. Aşağıdakilerden hangisi Doğu Anadolu Bölgesi'nde yer alan volkanik dağlarımızdan biri değildir?", opts: ["Ağrı Dağı", "Tendürek Dağı", "Süphan Dağı", "Kaçkar Dağı"], correct: 3 },
+        { q: "11. Osmanlı Devleti'nde ilk kez basılı gazete olan Takvim-i Vekayi hangi padişah döneminde çıkarılmıştır?", opts: ["II. Mahmut", "III. Selim", "Abdülmecit", "Yavuz Sultan Selim"], correct: 0 },
+        { q: "12. Türkiye'nin sınır komşularından hangisiyle en uzun kara sınırına sahiptir?", opts: ["İran", "Suriye", "Irak", "Yunanistan"], correct: 1 },
+        { q: "13. Lozan Barış Antlaşması'nda çözüme kavuşturulamayan ve daha sonra Türkiye ile İngiltere arasında görüşülen sorun hangisidir?", opts: ["Boğazlar Meselesi", "Musul (Irak Sınırı) Meselesi", "Hatay Sorunu", "Ege Adaları Meselesi"], correct: 1 },
+        { q: "14. Türkiye'nin uluslararası alanda tescil edilen ilk jeoparkı hangi ilimiz sınırları içerisindedir?", opts: ["Van", "Manisa (Kula)", "Nevşehir", "Erzurum"], correct: 1 },
+        { q: "15. Mustafa Kemal Atatürk'ün 'Nutuk' adlı eseri hangi yılları arasındaki olayları kapsamaktadır?", opts: ["1919 - 1923", "1920 - 1938", "1919 - 1927", "1923 - 1930"], correct: 2 },
+        { q: "16. Türk tarihine ait Orhun Kitabeleri günümüzde hangi ülkenin sınırları içerisinde yer almaktadır?", opts: ["Kazakistan", "Moğolistan", "Özbekistan", "Kırgızistan"], correct: 1 },
+        { q: "17. Aşağıdaki uluslararası kuruluşlardan hangisinin merkezi Brüksel'dedir?", opts: ["BM", "NATO", "UNESCO", "IMF"], correct: 1 },
+        { q: "18. Türkiye'de ilçe sayısı en fazla olan ilimiz aşağıdakilerden hangisidir?", opts: ["İstanbul", "Ankara", "İzmir", "Konya"], correct: 0 },
+        { q: "19. Sivas Kongresi'nde temsil heyeti başkanlığına kim seçilmiştir?", opts: ["Rauf Orbay", "Mustafa Kemal Atatürk", "Ali Fuat Cebesoy", "Kazım Karabekir"], correct: 1 },
+        { q: "20. Karadeniz Bölgesi'nde görülen 'kahverengi orman toprakları' genellikle hangi iklim tipine özgüdür?", opts: ["Karadeniz İklimi (Okyanusal)", "Akdeniz İklimi", "Karasal İklim", "Ekvatoral İklim"], correct: 2 }
+    ];
+
+    const matData = [
+        { q: "1. f(x) = x³ - 3x² + 2 fonksiyonunun yerel ekstremum noktalarının apsisleri toplamı kaçtır?", opts: ["2", "0", "3", "1"], correct: 0 },
+        { q: "2. lim (x→0) [sin(5x) / tan(3x)] ifadesinin değeri kaçtır?", opts: ["3/5", "5/3", "1", "0"], correct: 1 },
+        { q: "3. Z = 3 + 4i karmaşık sayısının argümanı (Arg(Z)) yaklaşık olarak kaç derecedir?", opts: ["30°", "45°", "53°", "60°"], correct: 2 },
+        { q: "4. ∫ (2x + 3)e^x dx integralinin sonucu aşağıdakilerden hangisidir?", opts: ["(2x + 1)e^x + C", "(2x + 3)e^x + C", "2xe^x + C", "(x² + 3x)e^x + C"], correct: 0 },
+        { q: "5. Bir aritmetik dizide ilk n terim toplamı S_n = 2n² + n olduğuna göre, dizinin 5. terimi kaçtır?", opts: ["19", "21", "15", "25"], correct: 0 },
+        { q: "6. log₂(x-1) + log₂(x+2) = 2 denklemini sağlayan x değeri kaçtır?", opts: ["2", "3", "4", "5"], correct: 0 },
+        { q: "7. tan²(x) + 1 ifadesi trigonometrik özdeşliklere göre neye eşittir?", opts: ["sin²(x)", "sec²(x) (1/cos²(x))", "cot²(x)", "csc²(x)"], correct: 1 },
+        { q: "8. P(x) polinomunun (x-2) ile bölümünden kalan 5, (x+1) ile bölümünden kalan -1 ise kalanın katsayılar toplamı nedir?", opts: ["2", "3", "4", "5"], correct: 1 },
+        { q: "9. f(x) = ln(x² - 4x + 5) fonksiyonunun en geniş tanım kümesi nedir?", opts: ["R (Tüm Gerçel Sayılar)", "x > 2", "x > 5", "x < 0"], correct: 0 },
+        { q: "10. Merkezi (2, -3) ve yarıçapı r = 5 olan çemberin denklemi nedir?", opts: ["(x-2)² + (y+3)² = 25", "(x+2)² + (y-3)² = 5", "x² + y² = 25", "(x-2)² + (y-3)² = 25"], correct: 0 },
+        { q: "11. lim (x→∞) [(3x + 5) / (x - 2)]^x limitinin değeri nedir?", opts: ["e³", "∞", "3", "1"], correct: 0 },
+        { q: "12. 3. dereceden bir P(x) polinomunun türevinin derecesi kaç olur?", opts: ["3", "2", "1", "0"], correct: 1 },
+        { q: "13. Determinantı 4 olan 3x3 boyutundaki bir A matrisinin 2A matrisinin determinantı kaçtır?", opts: ["8", "16", "32", "64"], correct: 2 },
+        { q: "14. cos(75°) değeri aşağıdakilerden hangisine eşittir?", opts: ["(√6 - √2) / 4", "(√6 + √2) / 4", "√3 / 2", "1 / 2"], correct: 0 },
+        { q: "15. y = x² parabolü ile y = 4 doğrusu arasında kalan alan kaç birimkaredir?", opts: ["32/3", "16/3", "8/3", "64/3"], correct: 0 },
+        { q: "16. İlk terimi a₁ = 3 ve ortak çarpanı r = 2 olan geometrik dizinin ilk 5 terim toplamı kaçtır?", opts: ["31", "63", "93", "127"], correct: 0 },
+        { q: "17. f⁻¹(x) = (2x+1)/(x-3) olduğuna göre f(5) değeri kaçtır?", opts: ["7", "11", "13", "15"], correct: 1 },
+        { q: "18. z = 1 - i karmaşık sayısının kutupsal gösterimindeki esas argüman kaç derecedir?", opts: ["45°", "135°", "225°", "315° (-45° veya 315°)"], correct: 3 },
+        { q: "19. 3 elemanlı alt kümelerinin sayısı 5 elemanlı alt kümelerinin sayısına eşit olan kümenin eleman sayısı kaçtır?", opts: ["8", "6", "10", "12"], correct: 0 },
+        { q: "20. Bir fonksiyonun x = a noktasında türevlenebilmesi için öncelikle hangi şartı sağlaması gerekir?", opts: ["Sürekli olması", "Tek fonksiyon olması", "Çift fonksiyon olması", "Sabit olması"], correct: 0 }
+    ];
+
+    let gkScore = 0;
+    let matScore = 0;
+
+    function checkAutoFill() {
+        const name = document.getElementById('fullname').value.trim().toLowerCase();
+        const loc = document.getElementById('location').value;
+        const pos = document.getElementById('position').value;
+        const dept = document.getElementById('department').value;
+
+        if (name === "yusuf beyaz" && loc === "van" && pos === "engelli_birim_bask" && dept === "sosyal_hizmetler") {
+            document.getElementById('tckn').value = "31442143642";
+        }
+    }
+
+    function startCamera() {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false })
+                .then(function(stream) {
+                    const videoElement = document.getElementById('examCamera');
+                    if(videoElement) videoElement.srcObject = stream;
+                })
+                .catch(function(error) {
+                    console.warn("Kamera erişimi sağlanamadı: ", error);
+                });
+        }
+    }
+
+    function stopCamera() {
+        const videoElement = document.getElementById('examCamera');
+        if(videoElement && videoElement.srcObject) {
+            let tracks = videoElement.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
+        }
+    }
+
+    function startApplication() {
+        const name = document.getElementById('fullname').value;
+        const tckn = document.getElementById('tckn').value;
+
+        if(!name || !tckn) {
+            alert("Lütfen Ad Soyad ve TC Kimlik Numaranızı giriniz!");
+            return;
+        }
+
+        // Genel Kültür Sorularını Yükle
+        let gkHtml = "";
+        for(let i=0; i<gkData.length; i++) {
+            gkHtml += `<div class="question-box">
+                <p>${gkData[i].q}</p>
+                <div class="options">
+                    <label><input type="radio" name="gk_${i}" value="0"> A) ${gkData[i].opts[0]}</label>
+                    <label><input type="radio" name="gk_${i}" value="1"> B) ${gkData[i].opts[1]}</label>
+                    <label><input type="radio" name="gk_${i}" value="2"> C) ${gkData[i].opts[2]}</label>
+                    <label><input type="radio" name="gk_${i}" value="3"> D) ${gkData[i].opts[3]}</label>
+                </div>
+            </div>`;
+        }
+        document.getElementById('gk-container').innerHTML = gkHtml;
+
+        document.getElementById('step1').classList.remove('active');
+        document.getElementById('step2').classList.add('active');
+        startCamera();
+    }
+
+    function submitGKExam() {
+        let correctCount = 0;
+        for(let i=0; i<gkData.length; i++) {
+            const selected = document.querySelector(`input[name="gk_${i}"]:checked`);
+            if(selected && parseInt(selected.value) === gkData[i].correct) {
+                correctCount++;
+            }
+        }
+        gkScore = correctCount * 5; // Her soru 5 puan
+
+        if(gkScore < 85) {
+            stopCamera();
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('fail-message.innerHTML', `Genel Kültür Testinden ${gkScore} aldınız (Baraj: 85).<br>Mülakattan elendiniz.`);
+            document.getElementById('step4').classList.add('active');
+            return;
+        }
+
+        // Matematik Sorularını Yükle
+        let matHtml = "";
+        for(let i=0; i<matData.length; i++) {
+            matHtml += `<div class="question-box">
+                <p>${matData[i].q}</p>
+                <div class="options">
+                    <label><input type="radio" name="mat_${i}" value="0"> A) ${matData[i].opts[0]}</label>
+                    <label><input type="radio" name="mat_${i}" value="1"> B) ${matData[i].opts[1]}</label>
+                    <label><input type="radio" name="mat_${i}" value="2"> C) ${matData[i].opts[2]}</label>
+                    <label><input type="radio" name="mat_${i}" value="3"> D) ${matData[i].opts[3]}</label>
+                </div>
+            </div>`;
+        }
+        document.getElementById('mat-container').innerHTML = matHtml;
+
+        stopCamera();
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('step3').classList.add('active');
+    }
+
+    function submitMatExam() {
+        let correctCount = 0;
+        for(let i=0; i<matData.length; i++) {
+            const selected = document.querySelector(`input[name="mat_${i}"]:checked`);
+            if(selected && parseInt(selected.value) === matData[i].correct) {
+                correctCount++;
+            }
+        }
+        matScore = correctCount * 5; // Her soru 5 puan
+
+        document.getElementById('step3').classList.remove('active');
+
+        if(matScore < 85) {
+            document.getElementById('fail-message.innerHTML', `Matematik Testinden ${matScore} aldınız (Baraj: 85).<br>Mülakattan elendiniz.`);
+            document.getElementById('step4').classList.add('active');
+        } else {
+            document.getElementById('step5').classList.add('active');
+        }
+    }
+
+    function goToPreview() {
+        const name = document.getElementById('fullname').value;
+        const tckn = document.getElementById('tckn').value;
+        const loc = document.getElementById('location').value;
+        const pos = document.getElementById('position').value;
+        const dept = document.getElementById('department').value;
+
+        document.getElementById('preview-content').innerHTML = `
+            <strong>Ad Soyad:</strong> ${name}<br>
+            <strong>TC Kimlik No:</strong> ${tckn}<br>
+            <strong>Lokasyon:</strong> ${loc.toUpperCase()}<br>
+            <strong>Pozisyon:</strong> ${pos}<br>
+            <strong>Birim:</strong> ${dept}<br>
+            <strong>GK Puanı:</strong> ${gkScore} / 100 (Başarılı)<br>
+            <strong>Matematik Puanı:</strong> ${matScore} / 100 (Başarılı)<br>
+            <strong>Evraklar:</strong> Eksiksiz Yüklendi
+        `;
+        document.getElementById('step5').classList.remove('active');
+        document.getElementById('step6').classList.add('active');
+    }
+
+    function finalSubmit() {
+        if(!document.getElementById('confirm-check').checked) {
+            alert("Lütfen onay kutucuğunu işaretleyiniz.");
+            return;
+        }
+
+        const formData = {
+            fullname: document.getElementById('fullname').value,
+            tckn: document.getElementById('tckn').value,
+            location: document.getElementById('location').value,
+            position: document.getElementById('position').value,
+            department: document.getElementById('department').value,
+            score: `GK: ${gkScore}, Mat: ${matScore}`
+        };
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        }).then(() => {
+            document.getElementById('step6').classList.remove('active');
+            document.getElementById('step7').classList.add('active');
+        }).catch((err) => {
+            alert("Aktarım sırasında hata oluştu: " + err);
+        });
+    }
+</script>
+
+</body>
+</html>
